@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(which claude:*)",
+      "Bash(npm list:*)",
+      "Bash(cp -r ~/.claude/rules/common/* /Users/apple/Documents/workspace/claudeShell/rules/common/ && cp -r ~/.claude/rules/typescript/* /Users/apple/Documents/workspace/claudeShell/rules/typescript/ && cp -r ~/.claude/rules/python/* /Users/apple/Documents/workspace/claudeShell/rules/python/ && cp -r ~/.claude/rules/golang/* /Users/apple/Documents/workspace/claudeShell/rules/golang/ && cp -r ~/.claude/rules/swift/* /Users/apple/Documents/workspace/claudeShell/rules/swift/ && cp ~/.claude/rules/README.md /Users/apple/Documents/workspace/claudeShell/rules/)",
+      "Bash(chmod +x /Users/apple/Documents/workspace/claudeShell/install-claude-code.sh && bash -n /Users/apple/Documents/workspace/claudeShell/install-claude-code.sh && echo \"语法检查通过\")",
+      "Bash(which shellcheck:*)",
+      "Bash(bash -n /Users/apple/Documents/workspace/claudeShell/install-claude-code.sh && echo \"✅ 语法检查通过\")",
+      "WebSearch",
+      "Bash(bash -n /Users/apple/Documents/workspace/claudeShell/install-claude-code.sh && echo \"✓ 语法验证通过\")",
+      "WebFetch(domain:help.aliyun.com)"
+    ]
+  }
+}
