@@ -139,172 +139,180 @@ TEAM_MEMBERS=()
 TEAM_MODELS=()
 TEAM_PROVIDERS=()
 
-# 插件列表
-declare -A AVAILABLE_PLUGINS=(
-    ["superpowers"]="增强 Power skills"
-    ["code-review"]="代码审查"
-    ["frontend-design"]="前端设计"
-    ["pr-review-toolkit"]="PR 审查工具"
-    ["feature-dev"]="功能开发"
-    ["claude-md-management"]="CLAUDE.md 管理"
-    ["figma"]="Figma 集成"
-    ["security-guidance"]="安全指导"
-    ["typescript-lsp"]="TypeScript LSP"
-    ["kotlin-lsp"]="Kotlin LSP"
-    ["swift-lsp"]="Swift LSP"
-    ["claude-code-setup"]="Claude Code 设置"
-    ["linear"]="Linear 集成"
-    ["learning-output-style"]="学习输出风格"
-    ["playground"]="Playground"
-    ["qodo-skills"]="Qodo Skills"
-    ["skill-creator"]="Skill Creator"
-    ["code-simplifier"]="代码简化器"
+# 插件列表 - 基础插件
+BASIC_PLUGIN_NAMES=(
+    "superpowers"
+    "code-review"
+    "security-guidance"
+    "feature-dev"
+    "claude-md-management"
+    "code-simplifier"
 )
 
-# 规则集
-declare -A AVAILABLE_RULES=(
-    ["common"]="通用规则 (必选)"
-    ["typescript"]="TypeScript/JavaScript"
-    ["python"]="Python"
-    ["golang"]="Go"
-    ["swift"]="Swift"
+# 插件列表 - 开发支持插件
+DEV_PLUGIN_NAMES=(
+    "typescript-lsp"
+    "kotlin-lsp"
+    "swift-lsp"
+    "frontend-design"
+    "pr-review-toolkit"
+    "figma"
+    "qodo-skills"
+    "skill-creator"
 )
 
-# 测试环境
-declare -A TEST_ENVIRONMENTS=(
-    ["playwright"]="Playwright E2E 测试"
-    ["jest"]="Jest JavaScript 单元测试"
-    ["pytest"]="Pytest Python 单元测试"
+# 获取插件描述
+get_plugin_desc() {
+    case "$1" in
+        "superpowers") echo "增强 Power skills" ;;
+        "code-review") echo "代码审查" ;;
+        "frontend-design") echo "前端设计" ;;
+        "pr-review-toolkit") echo "PR 审查工具" ;;
+        "feature-dev") echo "功能开发" ;;
+        "claude-md-management") echo "CLAUDE.md 管理" ;;
+        "figma") echo "Figma 集成" ;;
+        "security-guidance") echo "安全指导" ;;
+        "typescript-lsp") echo "TypeScript LSP" ;;
+        "kotlin-lsp") echo "Kotlin LSP" ;;
+        "swift-lsp") echo "Swift LSP" ;;
+        "qodo-skills") echo "Qodo Skills" ;;
+        "skill-creator") echo "Skill Creator" ;;
+        "code-simplifier") echo "代码简化器" ;;
+        *) echo "" ;;
+    esac
+}
+
+# 规则集 (名称数组)
+AVAILABLE_RULE_NAMES=(
+    "common"
+    "typescript"
+    "python"
+    "golang"
+    "swift"
 )
+
+# 获取规则描述
+get_rule_desc() {
+    case "$1" in
+        "common") echo "通用规则 (必选)" ;;
+        "typescript") echo "TypeScript/JavaScript" ;;
+        "python") echo "Python" ;;
+        "golang") echo "Go" ;;
+        "swift") echo "Swift" ;;
+        *) echo "" ;;
+    esac
+}
+
+# 测试环境 (名称数组)
+AVAILABLE_TEST_ENV_NAMES=(
+    "playwright"
+    "jest"
+    "pytest"
+)
+
+# 获取测试环境描述
+get_test_env_desc() {
+    case "$1" in
+        "playwright") echo "Playwright E2E 测试" ;;
+        "jest") echo "Jest JavaScript 单元测试" ;;
+        "pytest") echo "Pytest Python 单元测试" ;;
+        *) echo "" ;;
+    esac
+}
 
 # ------------------------------------------------------------------------------
 # 职业角色配置
 # ------------------------------------------------------------------------------
 
-# 角色分类
-declare -A ROLE_CATEGORIES=(
-    ["tech"]="技术开发类"
-    ["ops"]="运维安全类"
-    ["quality"]="质量保障类"
-    ["arch"]="架构管理类"
-    ["design"]="设计类"
-    ["content"]="内容创作类"
-    ["education"]="教育学习类"
-    ["general"]="普通用户"
-)
+# 角色名称数组
+TECH_ROLE_NAMES=("backend_engineer" "frontend_engineer" "mobile_engineer" "fullstack_engineer" "ai_engineer" "data_engineer")
+OPS_ROLE_NAMES=("devops_engineer" "security_engineer")
+QUALITY_ROLE_NAMES=("test_engineer")
+ARCH_ROLE_NAMES=("architect" "business_manager" "project_manager" "product_manager")
+DESIGN_ROLE_NAMES=("ui_ux_designer")
+CONTENT_ROLE_NAMES=("content_creator" "tech_writer")
+EDUCATION_ROLE_NAMES=("teacher" "student")
+GENERAL_ROLE_NAMES=("general_user")
 
-# 技术开发类角色
-declare -A TECH_ROLES=(
-    ["backend_engineer"]="后端开发工程师"
-    ["frontend_engineer"]="前端开发工程师"
-    ["mobile_engineer"]="移动端开发工程师"
-    ["fullstack_engineer"]="全栈工程师"
-    ["ai_engineer"]="AI/ML 工程师"
-    ["data_engineer"]="数据工程师"
-)
+# 获取角色中文名称
+get_role_name() {
+    case "$1" in
+        "backend_engineer") echo "后端开发工程师" ;;
+        "frontend_engineer") echo "前端开发工程师" ;;
+        "mobile_engineer") echo "移动端开发工程师" ;;
+        "fullstack_engineer") echo "全栈工程师" ;;
+        "ai_engineer") echo "AI/ML 工程师" ;;
+        "data_engineer") echo "数据工程师" ;;
+        "devops_engineer") echo "DevOps/SRE 工程师" ;;
+        "security_engineer") echo "安全工程师" ;;
+        "test_engineer") echo "测试工程师" ;;
+        "architect") echo "系统架构师" ;;
+        "business_manager") echo "业务经理" ;;
+        "project_manager") echo "项目经理" ;;
+        "product_manager") echo "产品经理" ;;
+        "ui_ux_designer") echo "UI/UX 设计师" ;;
+        "content_creator") echo "自媒体从业者" ;;
+        "tech_writer") echo "技术文档撰写者" ;;
+        "teacher") echo "教师" ;;
+        "student") echo "学生" ;;
+        "general_user") echo "普通用户" ;;
+        *) echo "$1" ;;
+    esac
+}
 
-# 运维安全类角色
-declare -A OPS_ROLES=(
-    ["devops_engineer"]="DevOps/SRE 工程师"
-    ["security_engineer"]="安全工程师"
-)
+# 获取角色配置 (规则|插件|技能|MCP)
+get_role_config() {
+    case "$1" in
+        # 技术开发类
+        "backend_engineer") echo "common,python,golang,typescript|typescript-lsp,kotlin-lsp,code-review,security-guidance|backend-patterns,api-design,database-migrations,postgres-patterns|postgres,redis" ;;
+        "frontend_engineer") echo "common,typescript|typescript-lsp,frontend-design,figma|frontend-patterns,e2e-testing|figma" ;;
+        "mobile_engineer") echo "common,swift,typescript|swift-lsp,kotlin-lsp,frontend-design|swiftui-patterns,swift-actor-persistence|firebase" ;;
+        "fullstack_engineer") echo "common,typescript,python,golang|typescript-lsp,frontend-design,code-review,security-guidance,superpowers|frontend-patterns,backend-patterns,api-design,deployment-patterns,docker-patterns|postgres,redis,docker" ;;
+        "ai_engineer") echo "common,python|feature-dev,code-review|foundation-models-on-device,agent-harness-construction,continuous-learning,eval-harness|huggingface,wandb" ;;
+        "data_engineer") echo "common,python|code-review,qodo-skills|postgres-patterns,clickhouse-io,database-migrations,python-patterns|postgres,clickhouse" ;;
 
-# 质量保障类角色
-declare -A QUALITY_ROLES=(
-    ["test_engineer"]="测试工程师"
-)
+        # 运维安全类
+        "devops_engineer") echo "common,golang|code-review,security-guidance|deployment-patterns,docker-patterns,continuous-agent-loop|kubernetes,docker" ;;
+        "security_engineer") echo "common|security-guidance,code-review|security-scan,django-security,springboot-security|sonarqube" ;;
 
-# 架构管理类角色
-declare -A ARCH_ROLES=(
-    ["architect"]="系统架构师"
-    ["business_manager"]="业务经理"
-    ["project_manager"]="项目经理"
-    ["product_manager"]="产品经理"
-)
+        # 质量保障类
+        "test_engineer") echo "common,python,typescript|playground,code-review|e2e-testing,python-testing,golang-testing,verification-loop|playwright" ;;
 
-# 设计类角色
-declare -A DESIGN_ROLES=(
-    ["ui_ux_designer"]="UI/UX 设计师"
-)
+        # 架构管理类
+        "architect") echo "common,typescript,python,golang|superpowers,feature-dev,claude-md-management,skill-creator|agentic-engineering,ai-first-engineering,iterative-retrieval,eval-harness|" ;;
+        "business_manager") echo "common|linear,claude-md-management,playground|market-research,investor-materials,investor-outreach,article-writing|notion,linear" ;;
+        "project_manager") echo "common|linear,claude-md-management,playground|article-writing,frontend-slides,market-research|linear,notion" ;;
+        "product_manager") echo "common|figma,linear,claude-md-management,playground|market-research,investor-materials,article-writing,frontend-slides|figma,linear,notion" ;;
 
-# 内容创作类角色
-declare -A CONTENT_ROLES=(
-    ["content_creator"]="自媒体从业者"
-    ["tech_writer"]="技术文档撰写者"
-)
+        # 设计类
+        "ui_ux_designer") echo "common|figma,frontend-design,playground|frontend-patterns,liquid-glass-design,frontend-slides,article-writing|figma" ;;
 
-# 教育学习类角色
-declare -A EDUCATION_ROLES=(
-    ["teacher"]="教师"
-    ["student"]="学生"
-)
+        # 内容创作类
+        "content_creator") echo "common|figma,playground,skill-creator|content-engine,article-writing,frontend-slides,market-research|notion" ;;
+        "tech_writer") echo "common|claude-md-management,skill-creator,playground|article-writing,frontend-slides|notion" ;;
 
-# 普通用户
-declare -A GENERAL_ROLES=(
-    ["general_user"]="普通用户"
-)
+        # 教育学习类
+        "teacher") echo "common|playground,claude-md-management,figma,learning-output-style|article-writing,frontend-slides,content-engine|notion" ;;
+        "student") echo "common|playground,learning-output-style,typescript-lsp,code-review|article-writing,python-patterns|github" ;;
 
-# 角色详细配置
-# 格式: 规则|插件|技能|MCP
-declare -A ROLE_CONFIGS=(
-    # 技术开发类
-    ["backend_engineer"]="common,python,golang,typescript|typescript-lsp,kotlin-lsp,code-review,security-guidance|backend-patterns,api-design,database-migrations,postgres-patterns|postgres,redis"
-    ["frontend_engineer"]="common,typescript|typescript-lsp,frontend-design,figma|frontend-patterns,e2e-testing|figma"
-    ["mobile_engineer"]="common,swift,typescript|swift-lsp,kotlin-lsp,frontend-design|swiftui-patterns,swift-actor-persistence|firebase"
-    ["fullstack_engineer"]="common,typescript,python,golang|typescript-lsp,frontend-design,code-review,security-guidance,superpowers|frontend-patterns,backend-patterns,api-design,deployment-patterns,docker-patterns|postgres,redis,docker"
-    ["ai_engineer"]="common,python|feature-dev,code-review|foundation-models-on-device,agent-harness-construction,continuous-learning,eval-harness|huggingface,wandb"
-    ["data_engineer"]="common,python|code-review,qodo-skills|postgres-patterns,clickhouse-io,database-migrations,python-patterns|postgres,clickhouse"
-
-    # 运维安全类
-    ["devops_engineer"]="common,golang|code-review,security-guidance|deployment-patterns,docker-patterns,continuous-agent-loop|kubernetes,docker"
-    ["security_engineer"]="common|security-guidance,code-review|security-scan,django-security,springboot-security|sonarqube"
-
-    # 质量保障类
-    ["test_engineer"]="common,python,typescript|playground,code-review|e2e-testing,python-testing,golang-testing,verification-loop|playwright"
-
-    # 架构管理类
-    ["architect"]="common,typescript,python,golang|superpowers,feature-dev,claude-md-management,skill-creator|agentic-engineering,ai-first-engineering,iterative-retrieval,eval-harness|"
-    ["business_manager"]="common|linear,claude-md-management,playground|market-research,investor-materials,investor-outreach,article-writing|notion,linear"
-    ["project_manager"]="common|linear,claude-md-management,playground|article-writing,frontend-slides,market-research|linear,notion"
-    ["product_manager"]="common|figma,linear,claude-md-management,playground|market-research,investor-materials,article-writing,frontend-slides|figma,linear,notion"
-
-    # 设计类
-    ["ui_ux_designer"]="common|figma,frontend-design,playground|frontend-patterns,liquid-glass-design,frontend-slides,article-writing|figma"
-
-    # 内容创作类
-    ["content_creator"]="common|figma,playground,skill-creator|content-engine,article-writing,frontend-slides,market-research|notion"
-    ["tech_writer"]="common|claude-md-management,skill-creator,playground|article-writing,frontend-slides|notion"
-
-    # 教育学习类
-    ["teacher"]="common|playground,claude-md-management,figma,learning-output-style|article-writing,frontend-slides,content-engine|notion"
-    ["student"]="common|playground,learning-output-style,typescript-lsp,code-review|article-writing,python-patterns|github"
-
-    # 普通用户
-    ["general_user"]="common|playground|article-writing|"
-)
+        # 普通用户
+        "general_user") echo "common|playground|article-writing|" ;;
+        *) echo "" ;;
+    esac
+}
 
 # Notebook LM 角色推荐程度
-declare -A NOTEBOOK_LM_RECOMMENDATION=(
-    ["teacher"]="5"
-    ["student"]="5"
-    ["content_creator"]="4"
-    ["product_manager"]="4"
-    ["business_manager"]="4"
-    ["project_manager"]="3"
-    ["ui_ux_designer"]="3"
-    ["general_user"]="2"
-    ["backend_engineer"]="2"
-    ["frontend_engineer"]="2"
-    ["mobile_engineer"]="2"
-    ["fullstack_engineer"]="2"
-    ["ai_engineer"]="3"
-    ["data_engineer"]="3"
-    ["devops_engineer"]="2"
-    ["security_engineer"]="2"
-    ["test_engineer"]="2"
-    ["architect"]="3"
-    ["tech_writer"]="4"
-)
+get_notebook_lm_recommendation() {
+    case "$1" in
+        "teacher"|"student") echo "5" ;;
+        "content_creator"|"product_manager"|"business_manager") echo "4" ;;
+        "architect"|"ai_engineer"|"data_engineer") echo "3" ;;
+        "ui_ux_designer"|"project_manager"|"devops_engineer"|"security_engineer"|"test_engineer"|"backend_engineer"|"frontend_engineer"|"mobile_engineer"|"fullstack_engineer") echo "2" ;;
+        "general_user") echo "2" ;;
+        "tech_writer") echo "4" ;;
+        *) echo "0" ;;
+    esac
+}
 
 # 用户选择的角色
 SELECTED_ROLES=""
@@ -536,88 +544,6 @@ rollback_config() {
 }
 
 # ------------------------------------------------------------------------------
-# 配置验证功能
-# ------------------------------------------------------------------------------
-verify_config() {
-    local api_url="$1"
-    local api_key="$2"
-    local model="$3"
-    local silent="${4:-false}"
-
-    [[ "$silent" != "true" ]] && echo -e "\n${WHITE}━━━ 配置验证 ━━━${NC}"
-
-    # 检查必要参数
-    if [[ -z "$api_url" ]] || [[ -z "$api_key" ]] || [[ -z "$model" ]]; then
-        [[ "$silent" != "true" ]] && print_error "配置不完整"
-        return 1
-    fi
-
-    # 验证 URL 格式
-    if [[ ! "$api_url" =~ ^https?:// ]]; then
-        [[ "$silent" != "true" ]] && print_error "无效的 API URL 格式"
-        return 1
-    fi
-
-    [[ "$silent" != "true" ]] && print_info "正在验证 API 连接..."
-
-    # 构建测试请求
-    local test_endpoint="$api_url/messages"
-    local test_payload='{"model":"'"$model"'","max_tokens":5,"messages":[{"role":"user","content":"hi"}]}'
-
-    # 发送测试请求
-    local response
-    local http_code
-
-    if command_exists curl; then
-        response=$(curl -s -w "\n%{http_code}" -X POST "$test_endpoint" \
-            -H "Content-Type: application/json" \
-            -H "x-api-key: $api_key" \
-            -H "anthropic-version: 2023-06-01" \
-            -d "$test_payload" 2>/dev/null || echo -e "\n000")
-        http_code=$(echo "$response" | tail -1)
-        response=$(echo "$response" | head -n -1)
-    else
-        [[ "$silent" != "true" ]] && print_warning "curl 未安装，跳过连接验证"
-        return 0
-    fi
-
-    # 检查响应
-    case "$http_code" in
-        200)
-            [[ "$silent" != "true" ]] && print_success "API 连接验证通过"
-            [[ "$silent" != "true" ]] && print_success "模型 '$model' 可用"
-            return 0
-            ;;
-        401)
-            [[ "$silent" != "true" ]] && print_error "API Key 无效或已过期"
-            return 1
-            ;;
-        404)
-            [[ "$silent" != "true" ]] && print_error "API 端点不存在，请检查 URL"
-            return 1
-            ;;
-        400)
-            local error_msg=$(echo "$response" | grep -o '"message":"[^"]*"' | head -1 | sed 's/"message":"//;s/"$//')
-            if [[ "$error_msg" == *"model"* ]] || [[ "$error_msg" == *"不支持"* ]]; then
-                [[ "$silent" != "true" ]] && print_error "模型 '$model' 不可用: $error_msg"
-                [[ "$silent" != "true" ]] && print_warning "请确认模型名称是否正确，错误可能导致额外计费"
-            else
-                [[ "$silent" != "true" ]] && print_error "请求错误: $error_msg"
-            fi
-            return 1
-            ;;
-        500|502|503)
-            [[ "$silent" != "true" ]] && print_warning "API 服务暂时不可用，请稍后重试"
-            return 2
-            ;;
-        *)
-            [[ "$silent" != "true" ]] && print_warning "无法验证连接 (HTTP $http_code)，请手动确认配置"
-            return 2
-            ;;
-    esac
-}
-
-# ------------------------------------------------------------------------------
 # 配置预览功能
 # ------------------------------------------------------------------------------
 preview_config() {
@@ -682,22 +608,19 @@ quick_setup_bailian() {
     print_info "选择 API Key 存储方式"
     configure_api_key_storage "$USER_API_KEY" "ANTHROPIC_AUTH_TOKEN" >/dev/null
 
-    # 验证配置
-    echo
-    if verify_config "$USER_BASE_URL" "$USER_API_KEY" "$USER_MODEL"; then
-        # 备份旧配置
-        backup_config
+    # 备份旧配置
+    backup_config
 
-        # 生成配置文件
-        mkdir -p "$CLAUDE_DIR"
+    # 生成配置文件
+    mkdir -p "$CLAUDE_DIR"
 
-        # 检测存储方式并生成对应配置
-        local storage_method
-        storage_method=$(detect_api_key_storage "ANTHROPIC_AUTH_TOKEN")
+    # 检测存储方式并生成对应配置
+    local storage_method
+    storage_method=$(detect_api_key_storage "ANTHROPIC_AUTH_TOKEN")
 
-        case "$storage_method" in
-            "environment")
-                cat > "$SETTINGS_FILE" << EOF
+    case "$storage_method" in
+        "environment")
+            cat > "$SETTINGS_FILE" << EOF
 {
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "\${ANTHROPIC_AUTH_TOKEN}",
@@ -708,10 +631,10 @@ quick_setup_bailian() {
   "language": "${USER_LANGUAGE}"
 }
 EOF
-                print_success "API Key 已安全存储在环境变量中"
-                ;;
-            "keyring")
-                cat > "$SETTINGS_FILE" << EOF
+            print_success "API Key 已安全存储在环境变量中"
+            ;;
+        "keyring")
+            cat > "$SETTINGS_FILE" << EOF
 {
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "\$(~/.claude/scripts/get-api-key.sh anthropic-api-key 2>/dev/null || echo '')",
@@ -722,10 +645,10 @@ EOF
   "language": "${USER_LANGUAGE}"
 }
 EOF
-                print_success "API Key 已安全存储在系统密钥环中"
-                ;;
-            *)
-                cat > "$SETTINGS_FILE" << EOF
+            print_success "API Key 已安全存储在系统密钥环中"
+            ;;
+        *)
+            cat > "$SETTINGS_FILE" << EOF
 {
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "${USER_API_KEY}",
@@ -736,19 +659,18 @@ EOF
   "language": "${USER_LANGUAGE}"
 }
 EOF
-                print_warning "API Key 以明文存储在配置文件中"
-                ;;
-        esac
+            print_warning "API Key 以明文存储在配置文件中"
+            ;;
+    esac
 
-        # 跳过官方登录流程
-        skip_onboarding
+    # 跳过官方登录流程
+    skip_onboarding
 
-        print_success "快捷配置完成!"
-        return 0
-    else
-        print_error "配置验证失败，请检查 API Key 是否正确"
-        return 1
+    print_success "快捷配置完成!"
+    if [[ $verify_result -ne 0 ]]; then
+        print_warning "请运行 'echo hi | claude -p' 测试 API 连接"
     fi
+    return 0
 }
 
 # ------------------------------------------------------------------------------
@@ -812,7 +734,7 @@ import_config() {
 
     # 提取配置值
     local base_url=$(echo "$config" | grep -o '"ANTHROPIC_BASE_URL": "[^"]*"' | sed 's/.*: "//;s/"$//')
-    local model=$(echo "$config" | grep -o '"ANTHROPIC_MODEL": "[^"]*"' | head -1 | sed 's/.*: "//;s/"$//')
+    local model=$(echo "$config" | grep -o '"ANTHROPIC_MODEL": "[^"]*"' | head -n 1 | sed 's/.*: "//;s/"$//')
 
     # 检查是否需要填写 API Key
     if echo "$config" | grep -q "YOUR_API_KEY"; then
@@ -941,43 +863,43 @@ select_roles() {
 
     # 显示角色分类
     echo -e "${WHITE}📂 技术开发类${NC}"
-    for role in "${!TECH_ROLES[@]}"; do
-        echo -e "  ${CYAN}•${NC} ${TECH_ROLES[$role]}"
+    for role in "${TECH_ROLE_NAMES[@]}"; do
+        echo -e "  ${CYAN}•${NC} $(get_role_name "$role")"
     done
 
     echo -e "\n${WHITE}📂 运维安全类${NC}"
-    for role in "${!OPS_ROLES[@]}"; do
-        echo -e "  ${CYAN}•${NC} ${OPS_ROLES[$role]}"
+    for role in "${OPS_ROLE_NAMES[@]}"; do
+        echo -e "  ${CYAN}•${NC} $(get_role_name "$role")"
     done
 
     echo -e "\n${WHITE}📂 质量保障类${NC}"
-    for role in "${!QUALITY_ROLES[@]}"; do
-        echo -e "  ${CYAN}•${NC} ${QUALITY_ROLES[$role]}"
+    for role in "${QUALITY_ROLE_NAMES[@]}"; do
+        echo -e "  ${CYAN}•${NC} $(get_role_name "$role")"
     done
 
     echo -e "\n${WHITE}📂 架构管理类${NC}"
-    for role in "${!ARCH_ROLES[@]}"; do
-        echo -e "  ${CYAN}•${NC} ${ARCH_ROLES[$role]}"
+    for role in "${ARCH_ROLE_NAMES[@]}"; do
+        echo -e "  ${CYAN}•${NC} $(get_role_name "$role")"
     done
 
     echo -e "\n${WHITE}📂 设计类${NC}"
-    for role in "${!DESIGN_ROLES[@]}"; do
-        echo -e "  ${CYAN}•${NC} ${DESIGN_ROLES[$role]}"
+    for role in "${DESIGN_ROLE_NAMES[@]}"; do
+        echo -e "  ${CYAN}•${NC} $(get_role_name "$role")"
     done
 
     echo -e "\n${WHITE}📂 内容创作类${NC}"
-    for role in "${!CONTENT_ROLES[@]}"; do
-        echo -e "  ${CYAN}•${NC} ${CONTENT_ROLES[$role]}"
+    for role in "${CONTENT_ROLE_NAMES[@]}"; do
+        echo -e "  ${CYAN}•${NC} $(get_role_name "$role")"
     done
 
     echo -e "\n${WHITE}📂 教育学习类${NC}"
-    for role in "${!EDUCATION_ROLES[@]}"; do
-        echo -e "  ${CYAN}•${NC} ${EDUCATION_ROLES[$role]}"
+    for role in "${EDUCATION_ROLE_NAMES[@]}"; do
+        echo -e "  ${CYAN}•${NC} $(get_role_name "$role")"
     done
 
     echo -e "\n${WHITE}📂 普通用户${NC}"
-    for role in "${!GENERAL_ROLES[@]}"; do
-        echo -e "  ${CYAN}•${NC} ${GENERAL_ROLES[$role]}"
+    for role in "${GENERAL_ROLE_NAMES[@]}"; do
+        echo -e "  ${CYAN}•${NC} $(get_role_name "$role")"
     done
 
     echo -e "\n${CYAN}─────────────────────────────────────────────────────────────${NC}"
@@ -987,37 +909,37 @@ select_roles() {
     local all_role_names=()
 
     # 合并所有角色
-    for role in "${!TECH_ROLES[@]}"; do
+    for role in "${TECH_ROLE_NAMES[@]}"; do
         all_roles+=("$role")
-        all_role_names+=("${TECH_ROLES[$role]}")
+        all_role_names+=("$(get_role_name "$role")")
     done
-    for role in "${!OPS_ROLES[@]}"; do
+    for role in "${OPS_ROLE_NAMES[@]}"; do
         all_roles+=("$role")
-        all_role_names+=("${OPS_ROLES[$role]}")
+        all_role_names+=("$(get_role_name "$role")")
     done
-    for role in "${!QUALITY_ROLES[@]}"; do
+    for role in "${QUALITY_ROLE_NAMES[@]}"; do
         all_roles+=("$role")
-        all_role_names+=("${QUALITY_ROLES[$role]}")
+        all_role_names+=("$(get_role_name "$role")")
     done
-    for role in "${!ARCH_ROLES[@]}"; do
+    for role in "${ARCH_ROLE_NAMES[@]}"; do
         all_roles+=("$role")
-        all_role_names+=("${ARCH_ROLES[$role]}")
+        all_role_names+=("$(get_role_name "$role")")
     done
-    for role in "${!DESIGN_ROLES[@]}"; do
+    for role in "${DESIGN_ROLE_NAMES[@]}"; do
         all_roles+=("$role")
-        all_role_names+=("${DESIGN_ROLES[$role]}")
+        all_role_names+=("$(get_role_name "$role")")
     done
-    for role in "${!CONTENT_ROLES[@]}"; do
+    for role in "${CONTENT_ROLE_NAMES[@]}"; do
         all_roles+=("$role")
-        all_role_names+=("${CONTENT_ROLES[$role]}")
+        all_role_names+=("$(get_role_name "$role")")
     done
-    for role in "${!EDUCATION_ROLES[@]}"; do
+    for role in "${EDUCATION_ROLE_NAMES[@]}"; do
         all_roles+=("$role")
-        all_role_names+=("${EDUCATION_ROLES[$role]}")
+        all_role_names+=("$(get_role_name "$role")")
     done
-    for role in "${!GENERAL_ROLES[@]}"; do
+    for role in "${GENERAL_ROLE_NAMES[@]}"; do
         all_roles+=("$role")
-        all_role_names+=("${GENERAL_ROLES[$role]}")
+        all_role_names+=("$(get_role_name "$role")")
     done
 
     # 交互式选择
@@ -1072,7 +994,7 @@ configure_document_analysis() {
     # 检查是否有推荐角色
     local recommend_level=0
     for role in $SELECTED_ROLES; do
-        local level="${NOTEBOOK_LM_RECOMMENDATION[$role]:-0}"
+        local level=$(get_notebook_lm_recommendation "$role")
         if [[ "$level" -gt "$recommend_level" ]]; then
             recommend_level="$level"
         fi
@@ -2297,7 +2219,7 @@ apply_role_config() {
     local all_mcp=""
 
     for role in $SELECTED_ROLES; do
-        local config="${ROLE_CONFIGS[$role]}"
+        local config=$(get_role_config "$role")
 
         if [[ -n "$config" ]]; then
             # 解析配置: 规则|插件|技能|MCP
@@ -2968,19 +2890,6 @@ configure_ai_provider() {
         return 1
     fi
 
-    # 配置验证
-    local verify_result
-    verify_config "$USER_BASE_URL" "$USER_API_KEY" "$USER_MODEL"
-    verify_result=$?
-
-    if [[ $verify_result -eq 1 ]]; then
-        echo
-        print_warning "配置验证失败，是否仍要保存？"
-        if ! confirm "保存配置?" "n"; then
-            return 1
-        fi
-    fi
-
     # 备份旧配置
     backup_config
 
@@ -3061,7 +2970,7 @@ test_installation() {
     # 验证 CLI
     print_info "验证 Claude Code CLI..."
     if claude --version >/dev/null 2>&1; then
-        print_success "CLI 安装正常 ($(claude --version 2>/dev/null | head -1))"
+        print_success "CLI 安装正常 ($(claude --version 2>/dev/null | head -n 1))"
     else
         print_error "CLI 安装异常"
         return 1
@@ -3073,12 +2982,6 @@ test_installation() {
         print_success "settings.json 存在"
     else
         print_warning "settings.json 不存在"
-    fi
-
-    # API 连接测试
-    if confirm "是否进行 API 连接测试?" "y"; then
-        print_info "测试 API 连接..."
-        echo "Say 'Hello'" | claude -p 2>/dev/null && print_success "API 连接正常" || print_warning "API 连接失败，请检查配置"
     fi
 
     echo
@@ -3110,12 +3013,21 @@ install_plugins() {
     echo
 
     local plugin_names=()
-    local plugin_descs=()
 
-    for name in "${!AVAILABLE_PLUGINS[@]}"; do
+    # 基础插件
+    echo -e "${WHITE}  📦 基础插件${NC}"
+    for name in "${BASIC_PLUGIN_NAMES[@]}"; do
         plugin_names+=("$name")
-        plugin_descs+=("${AVAILABLE_PLUGINS[$name]}")
-        printf "  %-25s %s\n" "$name" "${AVAILABLE_PLUGINS[$name]}"
+        printf "    ${CYAN}%-20s${NC} %s\n" "$name" "$(get_plugin_desc "$name")"
+    done
+
+    echo
+
+    # 开发支持插件
+    echo -e "${WHITE}  🛠️  开发支持插件${NC}"
+    for name in "${DEV_PLUGIN_NAMES[@]}"; do
+        plugin_names+=("$name")
+        printf "    ${CYAN}%-20s${NC} %s\n" "$name" "$(get_plugin_desc "$name")"
     done
 
     echo
@@ -3194,12 +3106,10 @@ configure_rules() {
     echo
 
     local rule_names=()
-    local rule_descs=()
 
-    for name in "${!AVAILABLE_RULES[@]}"; do
+    for name in "${AVAILABLE_RULE_NAMES[@]}"; do
         rule_names+=("$name")
-        rule_descs+=("${AVAILABLE_RULES[$name]}")
-        printf "  %-15s %s\n" "$name" "${AVAILABLE_RULES[$name]}"
+        printf "  %-15s %s\n" "$name" "$(get_rule_desc "$name")"
     done
 
     echo
@@ -3437,12 +3347,10 @@ install_test_env() {
     echo
 
     local env_names=()
-    local env_descs=()
 
-    for name in "${!TEST_ENVIRONMENTS[@]}"; do
+    for name in "${AVAILABLE_TEST_ENV_NAMES[@]}"; do
         env_names+=("$name")
-        env_descs+=("${TEST_ENVIRONMENTS[$name]}")
-        printf "  %-15s %s\n" "$name" "${TEST_ENVIRONMENTS[$name]}"
+        printf "  %-15s %s\n" "$name" "$(get_test_env_desc "$name")"
     done
 
     echo
@@ -3657,7 +3565,7 @@ manage_api_key_security() {
             fi
 
             if [[ -n "$api_key_value" ]]; then
-                configure_api_key_storage "$api_key_value" "ANTHROPIC_AUTH_TOKEN" >/dev/null
+                configure_api_key_storage "$api_key_value" "ANTHROPIC_AUTH_TOKEN"
 
                 # 更新配置文件
                 local new_storage
@@ -4277,68 +4185,43 @@ main() {
 
     # 询问要执行的步骤
     echo -e "${CYAN}请选择要执行的步骤:${NC}\n"
-    print_option "1" "完整安装（推荐）- 包含角色选择"
-    print_option "2" "智能安装 - 根据职业角色自动配置"
-    print_option "3" "仅安装 Claude Code"
-    print_option "4" "仅配置 AI Provider"
-    print_option "5" "仅安装插件"
-    print_option "6" "仅配置 Rules"
-    print_option "7" "仅配置 Claude Team"
-    print_option "8" "仅配置文档分析"
-    print_option "9" "仅配置办公能力 (P1)"
+    print_option "1" "安装 Claude Code"
+    print_option "2" "配置 AI Provider"
+    print_option "3" "安装插件"
+    print_option "4" "配置 Rules"
+    print_option "5" "配置 Claude Team"
+    print_option "6" "配置文档分析"
+    print_option "7" "配置办公能力 (P1)"
     print_option "G" "安装图形界面客户端 (Chatbox/Cherry Studio)"
     print_option "S" "API Key 安全管理"
-    print_option "A" "自定义步骤"
     print_option "0" "退出"
     echo
 
     local choice
-    echo -en "${BLUE}请选择 [0-9,A,G,S]: ${NC}"
+    echo -en "${BLUE}请选择 [0-7,G,S]: ${NC}"
     read -r choice
 
     case "$choice" in
         1)
             install_dependencies
             install_claude_code
-            configure_ai_provider
-            test_installation
-            select_roles
-            apply_role_config
-            configure_claude_team
-            configure_notebook_lm
-            configure_office_tools
-            install_test_env
             ;;
         2)
-            install_dependencies
-            install_claude_code
             configure_ai_provider
-            test_installation
-            select_roles
-            apply_role_config
-            configure_claude_team
-            configure_notebook_lm
             ;;
         3)
-            install_dependencies
-            install_claude_code
-            ;;
-        4)
-            configure_ai_provider
-            ;;
-        5)
             install_plugins
             ;;
-        6)
+        4)
             configure_rules
             ;;
-        7)
+        5)
             configure_claude_team
             ;;
-        8)
+        6)
             configure_notebook_lm
             ;;
-        9)
+        7)
             configure_office_tools
             ;;
         G|g)
@@ -4346,29 +4229,6 @@ main() {
             ;;
         S|s)
             manage_api_key_security
-            ;;
-        A|a)
-            # 自定义步骤
-            local steps=("依赖安装" "Claude Code 安装" "AI Provider 配置" "安装测试" "角色选择" "自动配置" "插件安装" "Rules 配置" "Claude Team 配置" "文档分析配置" "办公能力配置" "图形界面客户端安装" "测试环境安装")
-            local selected=$(select_multiple "选择要执行的步骤" "${steps[@]}")
-
-            for step in $selected; do
-                case "$step" in
-                    "依赖安装") install_dependencies ;;
-                    "Claude Code 安装") install_claude_code ;;
-                    "AI Provider 配置") configure_ai_provider ;;
-                    "安装测试") test_installation ;;
-                    "角色选择") select_roles ;;
-                    "自动配置") apply_role_config ;;
-                    "插件安装") install_plugins ;;
-                    "Rules 配置") configure_rules ;;
-                    "Claude Team 配置") configure_claude_team ;;
-                    "文档分析配置") configure_notebook_lm ;;
-                    "办公能力配置") configure_office_tools ;;
-                    "图形界面客户端安装") install_gui_client ;;
-                    "测试环境安装") install_test_env ;;
-                esac
-            done
             ;;
         0)
             print_info "退出安装"
